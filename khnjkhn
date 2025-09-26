@@ -1,0 +1,300 @@
+import turtle
+import math
+
+# Настройка окна
+screen = turtle.Screen()
+screen.bgcolor("black")
+screen.title("9mice Logo")
+screen.setup(800, 600)
+
+# Основная черепашка
+t = turtle.Turtle()
+t.speed(8)
+t.hideturtle()
+
+def draw_9mice_logo():
+    """Рисует основной логотип 9mice"""
+    
+    # Цвета в стиле 9mice (фиолетово-синяя гамма)
+    colors = ["#8A2BE2", "#9370DB", "#6A5ACD", "#483D8B"]
+    
+    # Большая цифра 9 в центре
+    t.color(colors[0])
+    t.pensize(8)
+    t.penup()
+    t.goto(0, 100)
+    t.pendown()
+    
+    # Рисуем цифру 9
+    t.setheading(0)
+    t.circle(-50, 180)  # Верхняя дуга
+    t.forward(40)
+    t.right(90)
+    t.forward(80)
+    t.right(90)
+    t.forward(40)
+    t.circle(-50, -180)  # Нижняя дуга
+    
+    # Мыши вокруг цифры 9
+    draw_mice_circle()
+
+def draw_mice_circle():
+    """Рисует 9 мышей вокруг цифры"""
+    mouse_colors = ["#FF69B4", "#00FFFF", "#FFFF00", "#FF4500", 
+                   "#32CD32", "#FFD700", "#FF6347", "#1E90FF", "#DA70D6"]
+    
+    radius = 120  # Радиус круга для мышей
+    angle_step = 40  # Угловой шаг
+    
+    for i in range(9):
+        angle = i * angle_step
+        x = radius * math.cos(math.radians(angle))
+        y = radius * math.sin(math.radians(angle)) + 20
+        
+        draw_simple_mouse(x, y, mouse_colors[i % len(mouse_colors)], i)
+
+def draw_simple_mouse(x, y, color, number):
+    """Рисует простую стилизованную мышь"""
+    t.penup()
+    t.goto(x, y)
+    t.pendown()
+    
+    # Тело мыши
+    t.color(color)
+    t.begin_fill()
+    t.circle(15)
+    t.end_fill()
+    
+    # Уши
+    t.penup()
+    t.goto(x-8, y+15)
+    t.pendown()
+    t.color(color)
+    t.begin_fill()
+    t.circle(5)
+    t.end_fill()
+    
+    t.penup()
+    t.goto(x+8, y+15)
+    t.pendown()
+    t.begin_fill()
+    t.circle(5)
+    t.end_fill()
+    
+    # Хвост
+    t.penup()
+    t.goto(x, y-15)
+    t.pendown()
+    t.color(color)
+    t.pensize(3)
+    t.setheading(-45)
+    t.forward(20)
+    
+    # Номер мыши
+    t.penup()
+    t.goto(x-5, y-5)
+    t.pendown()
+    t.color("white")
+    t.write(str(number+1), font=("Arial", 8, "bold"))
+
+def draw_detailed_mouse(x, y, color, size=1.0):
+    """Рисует более детализированную мышь"""
+    t.pensize(2)
+    
+    # Тело
+    t.penup()
+    t.goto(x, y)
+    t.pendown()
+    t.color(color)
+    t.begin_fill()
+    t.setheading(0)
+    
+    # Овальное тело
+    for _ in range(2):
+        t.circle(20 * size, 90)
+        t.circle(10 * size, 90)
+    t.end_fill()
+    
+    # Уши
+    t.penup()
+    t.goto(x-12*size, y+15*size)
+    t.pendown()
+    t.begin_fill()
+    t.circle(8 * size)
+    t.end_fill()
+    
+    t.penup()
+    t.goto(x+12*size, y+15*size)
+    t.pendown()
+    t.begin_fill()
+    t.circle(8 * size)
+    t.end_fill()
+    
+    # Глаза
+    t.penup()
+    t.goto(x-8*size, y+5*size)
+    t.pendown()
+    t.color("black")
+    t.begin_fill()
+    t.circle(2 * size)
+    t.end_fill()
+    
+    t.penup()
+    t.goto(x+8*size, y+5*size)
+    t.pendown()
+    t.begin_fill()
+    t.circle(2 * size)
+    t.end_fill()
+    
+    # Нос
+    t.penup()
+    t.goto(x-3*size, y-2*size)
+    t.pendown()
+    t.color("pink")
+    t.begin_fill()
+    t.circle(3 * size)
+    t.end_fill()
+    
+    # Усы
+    t.color("white")
+    t.pensize(1)
+    for angle in [-30, 0, 30]:
+        t.penup()
+        t.goto(x, y-2*size)
+        t.setheading(angle)
+        t.pendown()
+        t.forward(15 * size)
+
+def draw_modern_9mice():
+    """Современный вариант логотипа"""
+    t.clear()
+    
+    # Футуристичная цифра 9
+    t.color("#00FFFF")
+    t.pensize(10)
+    
+    # Неоновая цифра 9
+    points_9 = [(0, 100), (-40, 80), (-50, 50), (-30, 20), 
+                (20, 0), (40, 30), (20, 60), (-20, 70), (-40, 50)]
+    
+    t.penup()
+    t.goto(points_9[0])
+    t.pendown()
+    
+    for point in points_9:
+        t.goto(point)
+    t.goto(points_9[0])  # Замыкаем
+    
+    # Техно-мыши
+    tech_colors = ["#FF00FF", "#00FF00", "#FFFF00", "#00FFFF"]
+    
+    for i in range(9):
+        angle = i * 40
+        dist = 150 + math.sin(i) * 20
+        x = dist * math.cos(math.radians(angle))
+        y = dist * math.sin(math.radians(angle))
+        
+        draw_tech_mouse(x, y, tech_colors[i % len(tech_colors)])
+
+def draw_tech_mouse(x, y, color):
+    """Рисует техно-мышь в футуристичном стиле"""
+    t.pensize(3)
+    
+    # Геометрическое тело
+    t.penup()
+    t.goto(x, y)
+    t.pendown()
+    t.color(color)
+    
+    t.begin_fill()
+    for _ in range(6):
+        t.forward(15)
+        t.right(60)
+    t.end_fill()
+    
+    # Антенна
+    t.penup()
+    t.goto(x, y+15)
+    t.pendown()
+    t.color("#FFFFFF")
+    t.forward(10)
+    t.dot(5, color)
+
+def draw_text_logo():
+    """Добавляет текстовый логотип"""
+    text_turtle = turtle.Turtle()
+    text_turtle.speed(0)
+    text_turtle.hideturtle()
+    text_turtle.penup()
+    
+    # Основной текст
+    text_turtle.goto(0, -200)
+    text_turtle.color("#9370DB")
+    text_turtle.write("9mice", align="center", font=("Arial", 36, "bold"))
+    
+    # Дополнительный текст
+    text_turtle.goto(0, -230)
+    text_turtle.color("#FFFFFF")
+    text_turtle.write("digital studio", align="center", font=("Arial", 14, "italic"))
+
+def draw_particle_effects():
+    """Добавляет частицы вокруг"""
+    particle_turtle = turtle.Turtle()
+    particle_turtle.speed(0)
+    particle_turtle.hideturtle()
+    particle_turtle.penup()
+    
+    for _ in range(50):
+        x = random.randint(-300, 300)
+        y = random.randint(-200, 200)
+        size = random.randint(1, 4)
+        color = random.choice(["#FF69B4", "#00FFFF", "#FFFF00", "#FF4500"])
+        
+        particle_turtle.goto(x, y)
+        particle_turtle.dot(size, color)
+
+def animate_mice():
+    """Анимация движения мышей"""
+    for frame in range(10):
+        t.clear()
+        
+        # Изменяем позиции мышей для анимации
+        radius = 120 + math.sin(frame) * 10
+        angle_offset = frame * 5
+        
+        for i in range(9):
+            angle = i * 40 + angle_offset
+            x = radius * math.cos(math.radians(angle))
+            y = radius * math.sin(math.radians(angle)) + 20
+            
+            draw_simple_mouse(x, y, "#FF69B4", i)
+        
+        # Перерисовываем цифру 9
+        t.color("#8A2BE2")
+        t.pensize(8)
+        t.penup()
+        t.goto(0, 100)
+        t.pendown()
+        t.circle(-50, 180)
+        t.forward(40)
+        t.right(90)
+        t.forward(80)
+        t.right(90)
+        t.forward(40)
+        t.circle(-50, -180)
+        
+        turtle.delay(100)
+
+# Импортируем random для частиц
+import random
+
+# Рисуем основной логотип
+draw_9mice_logo()
+draw_text_logo()
+draw_particle_effects()
+
+# Раскомментируйте для альтернативных версий:
+# draw_modern_9mice()
+# animate_mice()
+
+screen.exitonclick()
